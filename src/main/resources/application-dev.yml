@@ -1,0 +1,24 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        default_schema: demo_transact
+        show_sql: true
+        format_sql: true
+    open-in-view: false
+  liquibase:
+    change-log: classpath:/db/changelog-master.xml
+    default-schema: demo_transact
+
+logging:
+  level:
+    org.hibernate.type: info
+    liquibase: info

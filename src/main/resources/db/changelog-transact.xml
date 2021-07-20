@@ -1,0 +1,40 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet author="Max (generated)" id="1626765642772-1">
+        <createTable tableName="dt_agreement">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="dt_agreement_pkey"/>
+            </column>
+            <column name="agr_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="open_date" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="org_name" type="VARCHAR(255)"/>
+            <column name="inn" type="VARCHAR(255)"/>
+            <column name="kpp" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Max (generated)" id="1626765642772-2">
+        <createTable tableName="dt_transaction">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="dt_transaction_pkey"/>
+            </column>
+            <column autoIncrement="true" name="agreement_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_datetime" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="transaction_sum" type="numeric(19, 2)"/>
+            <column name="commission" type="numeric(19, 2)"/>
+            <column name="transaction_num" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Max (generated)" id="1626765642772-3">
+        <addForeignKeyConstraint baseColumnNames="agreement_id" baseTableName="dt_transaction"
+                                 constraintName="fk_agreement_tr" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="dt_agreement" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
