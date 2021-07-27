@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class AgreementSpecification {
+public final class AgreementSpecification {
 
     public static Specification<AgreementEntity> allAgreements(AgreementFilterDTO filter) {
         return (r, cq, cb) -> {

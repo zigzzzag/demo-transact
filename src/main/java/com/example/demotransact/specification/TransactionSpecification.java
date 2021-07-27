@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TransactionSpecification {
+public final class TransactionSpecification {
 
     public static Specification<TransactionEntity> allTransactions(TransactionFilterDTO filter) {
         return (r, cq, cb) -> {
