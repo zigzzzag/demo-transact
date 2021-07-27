@@ -9,17 +9,17 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class AgreementMapping {
+public final class AgreementMapping {
 
     public static AgreementDTO toAgreementDTO(AgreementEntity entity) {
         return AgreementDTO.builder()
-                .id(entity.getId())
-                .number(entity.getNumber())
-                .openDate(entity.getOpenDate())
-                .orgName(entity.getOrgName())
-                .inn(entity.getInn())
-                .kpp(entity.getKpp())
-                .build();
+            .id(entity.getId())
+            .number(entity.getNumber())
+            .openDate(entity.getOpenDate())
+            .orgName(entity.getOrgName())
+            .inn(entity.getInn())
+            .kpp(entity.getKpp())
+            .build();
     }
 
     public static AgreementEntity toAgreementEntity(AgreementCreateRequestDTO dto) {
@@ -43,7 +43,7 @@ public class AgreementMapping {
 
     public static AgreementIdDTO toAgreementIdDTO(AgreementEntity entity) {
         return AgreementIdDTO.builder()
-                .id(entity.getId())
-                .build();
+            .id(entity.getId())
+            .build();
     }
 }

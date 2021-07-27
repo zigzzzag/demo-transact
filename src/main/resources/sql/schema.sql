@@ -23,4 +23,17 @@ create table demo_transact.DT_TRANSACTION
 ALTER TABLE demo_transact.DT_TRANSACTION
     ADD CONSTRAINT fk_agreement_tr
         FOREIGN KEY (AGREEMENT_ID)
-            REFERENCES demo_transact.DT_AGREEMENT(ID);
+            REFERENCES demo_transact.DT_AGREEMENT (ID);
+
+drop table if exists demo_transact.DT_USER;
+create table demo_transact.DT_USER
+(
+    ID         serial       not null primary key,
+    USERNAME   varchar(255) not null unique,
+    EMAIL      varchar(255) not null unique,
+    FIRST_NAME varchar(255) not null,
+    LAST_NAME  varchar(255) not null,
+    PASSWORD   varchar(255) not null,
+    ROLE       varchar(255) not null,
+    STATUS     varchar(255) not null
+);

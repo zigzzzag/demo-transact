@@ -8,7 +8,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TransactionMapping {
+public final class TransactionMapping {
 
     public static TransactionEntity toTransactionEntity(Long agreementId, TransactionCreateRequestDTO dto) {
         TransactionEntity result = new TransactionEntity();
@@ -22,18 +22,18 @@ public class TransactionMapping {
 
     public static TransactionIdDTO toTransactionIdDTO(TransactionEntity entity) {
         return TransactionIdDTO.builder()
-                .id(entity.getId())
-                .build();
+            .id(entity.getId())
+            .build();
     }
 
     public static TransactionDTO toTransactionDTO(TransactionEntity entity) {
         return TransactionDTO.builder()
-                .id(entity.getId())
-                .agreementId(entity.getAgreementId())
-                .transactionDateTime(entity.getTransactionDateTime())
-                .sum(entity.getSum())
-                .commission(entity.getCommission())
-                .number(entity.getNumber())
-                .build();
+            .id(entity.getId())
+            .agreementId(entity.getAgreementId())
+            .transactionDateTime(entity.getTransactionDateTime())
+            .sum(entity.getSum())
+            .commission(entity.getCommission())
+            .number(entity.getNumber())
+            .build();
     }
 }

@@ -9,8 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import static com.example.demotransact.controller.ApiVersion.API_V1;
+
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping(API_V1 + "/transactions")
 @RequiredArgsConstructor
 public class TransactionController {
 
@@ -23,8 +25,8 @@ public class TransactionController {
 
     @PostMapping("/search")
     public Page<TransactionDTO> searchTransactions(
-            @PageableDefault Pageable pageable,
-            @RequestBody TransactionFilterDTO filter
+        @PageableDefault Pageable pageable,
+        @RequestBody TransactionFilterDTO filter
     ) {
         return transactionService.searchTransactions(filter, pageable);
     }
