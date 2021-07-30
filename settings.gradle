@@ -1,1 +1,4 @@
 rootProject.name = 'demo-transact'
+include 'transact-be'
+include 'transact-producer'
+
