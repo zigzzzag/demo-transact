@@ -1,0 +1,47 @@
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.JsonNode
+import com.github.victools.jsonschema.generator.OptionPreset
+import com.github.victools.jsonschema.generator.SchemaGenerator
+import com.github.victools.jsonschema.generator.SchemaGeneratorConfig
+import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder
+import com.github.victools.jsonschema.generator.SchemaVersion
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.victools:jsonschema-generator:4.18.0'
+        classpath 'com.fasterxml.jackson.core:jackson-annotations:2.12.4'
+    }
+}
+
+task generateJsonSchema {
+    dependsOn compileJava
+    doLast {
+        def sourceClasses = [
+                'com.transact.dto.agreement.AgreementDTO',
+                'com.transact.dto.transaction.TransactionDTO'
+        ]
+        def outPath = '/out/generated/json/'
+
+        SchemaGeneratorConfigBuilder configBuilder = new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_7, OptionPreset.PLAIN_JSON)
+        SchemaGeneratorConfig config = configBuilder.build()
+        SchemaGenerator generator = new SchemaGenerator(config)
+
+        URL[] urls = sourceSets.main.runtimeClasspath.files.collect { it.toURI().toURL() } as URL[]
+        ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader()
+        def classloader = new URLClassLoader(urls, sysClassLoader)
+
+        sourceClasses.each {
+            Class type = classloader.loadClass(it)
+            def jsonSchema = generator.generateSchema(type)
+            def jsonSchemaStr = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(jsonSchema)
+            def fileName = it.split("\\.").last() + '.json'
+            def out = file(projectDir.path + outPath)
+            out.mkdirs()
+            file(out.path + File.separator + fileName).text = jsonSchemaStr
+        }
+    }
+}
