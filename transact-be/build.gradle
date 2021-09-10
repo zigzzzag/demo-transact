@@ -4,8 +4,6 @@ plugins {
     id 'java'
 }
 
-apply from: 'generate-json-schema.gradle'
-
 group = 'com.transact'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
